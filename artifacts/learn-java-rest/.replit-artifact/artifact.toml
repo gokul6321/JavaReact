@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Learn Java, REST & MySQL"
+version = "1.0.0"
+id = "artifacts/learn-java-rest"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22077
+
+[services.development]
+run = "pnpm --filter @workspace/learn-java-rest run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/learn-java-rest", "run", "build" ]
+publicDir = "artifacts/learn-java-rest/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22077"
+BASE_PATH = "/"
